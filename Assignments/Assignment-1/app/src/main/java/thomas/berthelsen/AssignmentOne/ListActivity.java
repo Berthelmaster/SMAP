@@ -3,16 +3,14 @@ package thomas.berthelsen.AssignmentOne;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,7 +21,13 @@ public class ListActivity extends AppCompatActivity {
     TextView myWords;
     ListView listVIew;
     Button exitButton;
+    CardView cardView;
+    ImageView animalImageView;
+    TextView animalImageTitle;
+    TextView animalPronunciation;
+    TextView animalImageScoreButton;
     String animalTitle[] = {"buffalo", "camel", "cheetah", "crocodile", "elephant", "giraffe", "gnu", "kudo", "leopard", "lion", "oryx", "ostrich", "shark", "snake"};
+    String animalPronunciations[] = {"ˈbəf(ə)ˌlō", "ˈkaməl", "ˈCHēdə", "ˈkräkəˌdīl", "ˈeləfənt", "jəˈraf", "n(y)o͞o", "ˈko͞odo͞o", "ˈlepərd", "ˈlīən", "null", "ˈästriCH", "SHärk", "snāk"};
     String animalDescribtion[] = {"a heavily built wild ox with backward-curving horns, found mainly in the Old World tropics","a large, long-necked ungulate mammal of arid country, with long slender legs, broad cushioned feet, and either one or two humps on the back. Camels can survive for long periods without food or drink, chiefly by using up the fat reserves in their humps",
     "a large slender spotted cat found in Africa and parts of Asia. It is the fastest animal on land", "a large predatory semiaquatic reptile with long jaws, long tail, short legs, and a horny textured skin",
     "a very large plant-eating mammal with a prehensile trunk, long curved ivory tusks, and large ears, native to Africa and southern Asia. It is the largest living land animal", "a large African mammal with a very long neck and forelegs, having a coat patterned with brown patches separated by lighter lines. It is the tallest living animal",
@@ -36,6 +40,8 @@ public class ListActivity extends AppCompatActivity {
             R.drawable.gnu, R.drawable.kudo, R.drawable.leopard,
             R.drawable.lion, R.drawable.oryx, R.drawable.ostrich,
             R.drawable.shark, R.drawable.snake};
+
+    float score = 5;
 
 
     @Override
@@ -51,10 +57,6 @@ public class ListActivity extends AppCompatActivity {
         customListAdaptor listAdapter = new customListAdaptor();
 
         listVIew.setAdapter(listAdapter);
-
-
-
-
 
 
 
@@ -91,29 +93,39 @@ public class ListActivity extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = getLayoutInflater().inflate(R.layout.listcontent,parent, false);
 
-            double score = 5.00;
-            ImageView animalImageView;
-            TextView animalImageTitle;
-            TextView animalImageDescribtion;
-            Button animalImageScoreButton;
-
-
-
-
+            //Set relations
+            cardView = convertView.findViewById(R.id.cardView);
             animalImageView = convertView.findViewById(R.id.animalImage);
             animalImageTitle = convertView.findViewById(R.id.animalTitle);
-            animalImageDescribtion = convertView.findViewById(R.id.animalDescribtion);
+            animalPronunciation = convertView.findViewById(R.id.animalPronunciation);
             animalImageScoreButton = convertView.findViewById(R.id.animalRatingButton);
 
+
+            //Set each view
             animalImageView.setImageResource(animalImages[position]);
             animalImageTitle.setText(animalTitle[position]);
-            animalImageDescribtion.setText(animalDescribtion[position]);
+            animalPronunciation.setText(animalPronunciations[position]);
             animalImageScoreButton.setText(String.valueOf(score));
 
 
 
+            //Goto DetailsActivity
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+
+            //Log
+            Log.d("getView", "Im in getView()");
+
             return convertView;
         }
     }
+
+
 }
 

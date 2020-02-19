@@ -19,36 +19,40 @@
             android:id="@+id/animalImage"
             android:layout_width="87dp"
             android:layout_height="match_parent"
-
+            android:gravity="center"
             android:contentDescription="@string/todo"
             android:src="@mipmap/ic_launcher"></ImageView>
 
         <TextView
             android:id="@+id/animalTitle"
-            android:layout_width="197dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="95dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="95dp"
             android:text="@string/value1"
-            android:textSize="18sp"></TextView>
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginStart="95dp"></TextView>
 
         <TextView
-            android:id="@+id/animalDescribtion"
-            android:layout_width="198dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="95dp"
+            android:id="@+id/animalPronunciation"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="95dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="50dp"
             android:text="@string/value2"
-            android:textSize="9sp"></TextView>
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginStart="95dp"></TextView>
 
-        <Button
+        <TextView
             android:id="@+id/animalRatingButton"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginStart="300dp"
             android:layout_marginLeft="300dp"
-            android:text="@string/value3"></Button>
+            android:gravity="center"
+            android:textSize="35sp"
+            android:text="@string/value3"></TextView>
     </androidx.cardview.widget.CardView>
 
 
