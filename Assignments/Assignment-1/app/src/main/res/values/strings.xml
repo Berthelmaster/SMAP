@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">AssignmentOne</string>
+    <string name="app_name">Word Learner</string>
+    <string name="textview">TextView</string>
+    <string name="main_exit_textView">Exit</string>
+    <string name="main_mywords_textView">My Words:</string>
+    <string name="main_exit_button">Exit</string>
+    <string name="todo">TODO</string>
+    <string name="value3">Value3</string>
+    <string name="value2">Value2</string>
+    <string name="value1">Value1</string>
 </resources>
