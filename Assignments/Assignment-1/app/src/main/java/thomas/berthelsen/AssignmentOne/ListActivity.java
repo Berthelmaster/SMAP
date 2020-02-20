@@ -16,16 +16,15 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
+
 public class ListActivity extends AppCompatActivity {
 
-    TextView myWords;
     ListView listVIew;
     Button exitButton;
     CardView cardView;
     ImageView animalImageView;
-    TextView animalImageTitle;
-    TextView animalPronunciation;
-    TextView animalImageScoreButton;
+    TextView myWords, animalImageTitle, animalImageScoreButton, animalPronunciation;
     String animalTitle[] = {"buffalo", "camel", "cheetah", "crocodile", "elephant", "giraffe", "gnu", "kudo", "leopard", "lion", "oryx", "ostrich", "shark", "snake"};
     String animalPronunciations[] = {"ˈbəf(ə)ˌlō", "ˈkaməl", "ˈCHēdə", "ˈkräkəˌdīl", "ˈeləfənt", "jəˈraf", "n(y)o͞o", "ˈko͞odo͞o", "ˈlepərd", "ˈlīən", "null", "ˈästriCH", "SHärk", "snāk"};
     String animalDescribtion[] = {"a heavily built wild ox with backward-curving horns, found mainly in the Old World tropics","a large, long-necked ungulate mammal of arid country, with long slender legs, broad cushioned feet, and either one or two humps on the back. Camels can survive for long periods without food or drink, chiefly by using up the fat reserves in their humps",
@@ -90,7 +89,7 @@ public class ListActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             convertView = getLayoutInflater().inflate(R.layout.listcontent,parent, false);
 
             //Set relations
@@ -108,15 +107,28 @@ public class ListActivity extends AppCompatActivity {
             animalImageScoreButton.setText(String.valueOf(score));
 
 
+            final int animalImage = animalImages[position];
+            final String animalName = animalTitle[position];
+            final String animalDesc = animalDescribtion[position];
+            final String animalPron = animalPronunciations[position];
 
             //Goto DetailsActivity
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+
+                    intent.putExtra("AnimalImage", animalImage);
+                    intent.putExtra("AnimalName", animalName);
+                    intent.putExtra("AnimalPron", animalPron);
+                    intent.putExtra("AnimalDesc", animalDesc);
+
+
                     startActivity(intent);
                 }
             });
+
+
 
 
             //Log
@@ -124,6 +136,19 @@ public class ListActivity extends AppCompatActivity {
 
             return convertView;
         }
+    }
+
+    public class AnimalComplete implements Serializable {
+
+        private int Image;
+
+        AnimalComplete(int image){
+            this.Image = image;
+        }
+
+        public int getImage() {return Image;}
+        public void setImage(int image) {this.Image = image;}
+
     }
 
 
