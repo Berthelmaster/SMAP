@@ -9,4 +9,8 @@
     <string name="value1">Value1</string>
     <string name="todo">TODO</string>
     <string name="someimage">someimage</string>
+    <string name="RatingTextView">5</string>
+    <string name="Notes">Notes:</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Edit">Edit</string>
 </resources>

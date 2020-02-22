@@ -25,9 +25,9 @@ public class ListActivity extends AppCompatActivity {
     CardView cardView;
     ImageView animalImageView;
     TextView myWords, animalImageTitle, animalImageScoreButton, animalPronunciation;
-    String animalTitle[] = {"buffalo", "camel", "cheetah", "crocodile", "elephant", "giraffe", "gnu", "kudo", "leopard", "lion", "oryx", "ostrich", "shark", "snake"};
+    String animalTitles[] = {"buffalo", "camel", "cheetah", "crocodile", "elephant", "giraffe", "gnu", "kudo", "leopard", "lion", "oryx", "ostrich", "shark", "snake"};
     String animalPronunciations[] = {"ˈbəf(ə)ˌlō", "ˈkaməl", "ˈCHēdə", "ˈkräkəˌdīl", "ˈeləfənt", "jəˈraf", "n(y)o͞o", "ˈko͞odo͞o", "ˈlepərd", "ˈlīən", "null", "ˈästriCH", "SHärk", "snāk"};
-    String animalDescribtion[] = {"a heavily built wild ox with backward-curving horns, found mainly in the Old World tropics","a large, long-necked ungulate mammal of arid country, with long slender legs, broad cushioned feet, and either one or two humps on the back. Camels can survive for long periods without food or drink, chiefly by using up the fat reserves in their humps",
+    String animalDescribtions[] = {"a heavily built wild ox with backward-curving horns, found mainly in the Old World tropics","a large, long-necked ungulate mammal of arid country, with long slender legs, broad cushioned feet, and either one or two humps on the back. Camels can survive for long periods without food or drink, chiefly by using up the fat reserves in their humps",
     "a large slender spotted cat found in Africa and parts of Asia. It is the fastest animal on land", "a large predatory semiaquatic reptile with long jaws, long tail, short legs, and a horny textured skin",
     "a very large plant-eating mammal with a prehensile trunk, long curved ivory tusks, and large ears, native to Africa and southern Asia. It is the largest living land animal", "a large African mammal with a very long neck and forelegs, having a coat patterned with brown patches separated by lighter lines. It is the tallest living animal",
     "a large dark antelope with a long head, a beard and mane, and a sloping back", "an African antelope that has a greyish or brownish coat with white vertical stripes, and a short bushy tail. The male has long spirally curved horns",
@@ -39,8 +39,8 @@ public class ListActivity extends AppCompatActivity {
             R.drawable.gnu, R.drawable.kudo, R.drawable.leopard,
             R.drawable.lion, R.drawable.oryx, R.drawable.ostrich,
             R.drawable.shark, R.drawable.snake};
+    double animalRatings[] = {5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00};
 
-    float score = 5;
 
 
     @Override
@@ -71,11 +71,9 @@ public class ListActivity extends AppCompatActivity {
 
     class customListAdaptor extends BaseAdapter{
 
-
-
         @Override
         public int getCount() {
-            return animalTitle.length;
+            return animalTitles.length;
         }
 
         @Override
@@ -102,52 +100,60 @@ public class ListActivity extends AppCompatActivity {
 
             //Set each view
             animalImageView.setImageResource(animalImages[position]);
-            animalImageTitle.setText(animalTitle[position]);
+            animalImageTitle.setText(animalTitles[position]);
             animalPronunciation.setText(animalPronunciations[position]);
-            animalImageScoreButton.setText(String.valueOf(score));
+            animalImageScoreButton.setText(String.valueOf(animalRatings[position]));
 
 
             final int animalImage = animalImages[position];
-            final String animalName = animalTitle[position];
-            final String animalDesc = animalDescribtion[position];
+            final String animalName = animalTitles[position];
+            final String animalDesc = animalDescribtions[position];
             final String animalPron = animalPronunciations[position];
+            final double animalRating = animalRatings[position];
 
             //Goto DetailsActivity
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Intent intent = new Intent(ListActivity.this, DetailActivity.class);
 
                     intent.putExtra("AnimalImage", animalImage);
                     intent.putExtra("AnimalName", animalName);
                     intent.putExtra("AnimalPron", animalPron);
                     intent.putExtra("AnimalDesc", animalDesc);
+                    intent.putExtra("AnimalRating", animalRating);
 
 
                     startActivity(intent);
                 }
             });
 
-
-
-
-            //Log
-            Log.d("getView", "Im in getView()");
-
             return convertView;
         }
     }
 
+
+    // Will be used later in the course
     public class AnimalComplete implements Serializable {
 
         private int Image;
+        private double Rating;
+        private String Name, Desc, Pron;
 
-        AnimalComplete(int image){
+        AnimalComplete(int image, String name, String desc, String pron, double rating){
             this.Image = image;
+            this.Name = name;
+            this.Desc = desc;
+            this.Pron = pron;
+            this.Rating = rating;
         }
 
         public int getImage() {return Image;}
         public void setImage(int image) {this.Image = image;}
+
+        public String getName() {return Name;}
+        public void setName(String name) {this.Name = name;}
 
     }
 
