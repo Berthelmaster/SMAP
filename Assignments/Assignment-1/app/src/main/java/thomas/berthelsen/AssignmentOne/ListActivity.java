@@ -79,7 +79,6 @@ public class ListActivity extends AppCompatActivity implements Serializable {
 
         recyclerView.setAdapter(adapter);
 
-
         //Exit
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +91,7 @@ public class ListActivity extends AppCompatActivity implements Serializable {
 
 
     //Recycler Adaptor
-    public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerAdaptor.ViewHolder>{
+    public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerAdaptor.ViewHolder> implements Serializable{
 
         public RecyclerAdaptor(List<AnimalComplete> listitems, Context context) {
             this.listitems = listitems;
@@ -112,7 +111,7 @@ public class ListActivity extends AppCompatActivity implements Serializable {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            AnimalComplete listitem = listitems.get(position);
+            final AnimalComplete listitem = listitems.get(position);
 
             holder.ImageViewHolder.setImageResource(listitem.getImage());
             holder.NameViewHolder.setText(listitem.getName());
@@ -123,6 +122,7 @@ public class ListActivity extends AppCompatActivity implements Serializable {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(ListActivity.this, DetailActivity.class);
+                    intent.putExtra("AnimalComplete", listitem);
                     startActivity(intent);
                 }
             });
