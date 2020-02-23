@@ -8,10 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import java.io.Serializable;
 
 import static java.lang.Integer.parseInt;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements Serializable{
 
     ImageView detailAnimalImage;
     TextView detailNameView, detailPronView, detailDescView, detailRatingView;
@@ -30,22 +31,33 @@ public class DetailActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.detailCancelButton);
         editButton = findViewById(R.id.detailEditButton);
 
-        int image = getIntent().getExtras().getInt("AnimalImage");
-        String name = getIntent().getExtras().getString("AnimalName");
-        String pron = getIntent().getExtras().getString("AnimalPron");
-        String desc = getIntent().getExtras().getString("AnimalDesc");
-        Double rating = getIntent().getExtras().getDouble("AnimalRating");
+        ListActivity.AnimalComplete animalList = (ListActivity.AnimalComplete)getIntent().getSerializableExtra("AnimalObject");
+
+        int image = animalList.getImage();
+        String name = animalList.getName();
+        String pron = animalList.getPron();
+        String desc = animalList.getDesc();
+        double rating = animalList.getRating();
 
         detailAnimalImage.setImageResource(image);
         detailNameView.setText(name);
         detailPronView.setText(pron);
         detailDescView.setText(desc);
-        detailRatingView.setText(Double.toString(rating));
+        detailRatingView.setText(String.valueOf(rating));
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailActivity.this, EditActivity.class);
+
+                startActivity(intent);
             }
         });
 

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class EditActivity extends AppCompatActivity {
+import java.io.Serializable;
+
+public class EditActivity extends AppCompatActivity implements Serializable{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

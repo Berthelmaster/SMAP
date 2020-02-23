@@ -5,6 +5,8 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,7 @@ import org.w3c.dom.Text;
 
 import java.io.Serializable;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity implements Serializable {
 
     ListView listVIew;
     Button exitButton;
@@ -39,7 +41,7 @@ public class ListActivity extends AppCompatActivity {
             R.drawable.gnu, R.drawable.kudo, R.drawable.leopard,
             R.drawable.lion, R.drawable.oryx, R.drawable.ostrich,
             R.drawable.shark, R.drawable.snake};
-    double animalRatings[] = {5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00};
+    double animalRatings[] = {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5};
 
 
 
@@ -69,7 +71,7 @@ public class ListActivity extends AppCompatActivity {
         });
     }
 
-    class customListAdaptor extends BaseAdapter{
+    public class customListAdaptor extends BaseAdapter{
 
         @Override
         public int getCount() {
@@ -97,19 +99,16 @@ public class ListActivity extends AppCompatActivity {
             animalPronunciation = convertView.findViewById(R.id.animalPronunciation);
             animalImageScoreButton = convertView.findViewById(R.id.animalRatingButton);
 
+            final AnimalComplete animalList = new AnimalComplete(animalImages[position], animalTitles[position], animalDescribtions[position], animalPronunciations[position], animalRatings[position], position);
 
             //Set each view
-            animalImageView.setImageResource(animalImages[position]);
-            animalImageTitle.setText(animalTitles[position]);
-            animalPronunciation.setText(animalPronunciations[position]);
-            animalImageScoreButton.setText(String.valueOf(animalRatings[position]));
+            animalImageView.setImageResource(animalList.getImage());
+            animalImageTitle.setText(animalList.getName());
+            animalPronunciation.setText(animalList.getPron());
+            animalImageScoreButton.setText(String.valueOf(animalList.getRating()));
 
 
-            final int animalImage = animalImages[position];
-            final String animalName = animalTitles[position];
-            final String animalDesc = animalDescribtions[position];
-            final String animalPron = animalPronunciations[position];
-            final double animalRating = animalRatings[position];
+
 
             //Goto DetailsActivity
             cardView.setOnClickListener(new View.OnClickListener() {
@@ -118,12 +117,7 @@ public class ListActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(ListActivity.this, DetailActivity.class);
 
-                    intent.putExtra("AnimalImage", animalImage);
-                    intent.putExtra("AnimalName", animalName);
-                    intent.putExtra("AnimalPron", animalPron);
-                    intent.putExtra("AnimalDesc", animalDesc);
-                    intent.putExtra("AnimalRating", animalRating);
-
+                    intent.putExtra("AnimalObject", animalList);
 
                     startActivity(intent);
                 }
@@ -134,19 +128,20 @@ public class ListActivity extends AppCompatActivity {
     }
 
 
-    // Will be used later in the course
+    // Model
     public class AnimalComplete implements Serializable {
 
-        private int Image;
+        private int Image, Position;
         private double Rating;
         private String Name, Desc, Pron;
 
-        AnimalComplete(int image, String name, String desc, String pron, double rating){
+        public AnimalComplete(int image, String name, String desc, String pron, double rating, int position){
             this.Image = image;
             this.Name = name;
             this.Desc = desc;
             this.Pron = pron;
             this.Rating = rating;
+            this.Position = position;
         }
 
         public int getImage() {return Image;}
@@ -155,8 +150,20 @@ public class ListActivity extends AppCompatActivity {
         public String getName() {return Name;}
         public void setName(String name) {this.Name = name;}
 
+        public String getDesc() {return Desc;}
+        public void setDesc(String desc) {this.Desc = desc;}
+
+        public String getPron() {return Pron;}
+        public void setPron(String pron) {this.Pron = pron;}
+
+        public double getRating() {return Rating;}
+        public void setRating(double rating) {this.Rating = rating;}
+
+        public int getPosition() {return Position;}
+        public void setPosition(int position) {this.Position = position;}
+
+
+        }
     }
 
-
-}
 
