@@ -37,7 +37,7 @@ public class DetailActivity extends AppCompatActivity implements Serializable{
         String name = animalList.getName();
         String pron = animalList.getPron();
         String desc = animalList.getDesc();
-        double rating = animalList.getRating();
+        String rating = animalList.getRating();
 
         detailAnimalImage.setImageResource(image);
         detailNameView.setText(name);

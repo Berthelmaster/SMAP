@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -16,7 +16,7 @@
         android:layout_marginBottom="10dp">
 
         <ImageView
-            android:id="@+id/animalImage"
+            android:id="@+id/AnimalImage"
             android:layout_width="87dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -24,7 +24,7 @@
             android:src="@mipmap/ic_launcher"></ImageView>
 
         <TextView
-            android:id="@+id/animalTitle"
+            android:id="@+id/AnimalName"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_marginLeft="95dp"
@@ -34,7 +34,7 @@
             android:layout_marginStart="95dp"></TextView>
 
         <TextView
-            android:id="@+id/animalPronunciation"
+            android:id="@+id/AnimalPronunciation"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_marginLeft="95dp"
@@ -45,7 +45,7 @@
             android:layout_marginStart="95dp"></TextView>
 
         <TextView
-            android:id="@+id/animalRatingButton"
+            android:id="@+id/AnimalRating"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginStart="300dp"
