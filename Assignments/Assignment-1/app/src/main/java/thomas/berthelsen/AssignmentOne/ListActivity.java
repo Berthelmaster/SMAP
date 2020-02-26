@@ -1,6 +1,7 @@
 package thomas.berthelsen.AssignmentOne;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.sax.StartElementListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +29,7 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity implements Serializable {
 
-     ListView listVIew;
      Button exitButton;
-     CardView cardView;
-     ImageView animalImageView;
      TextView myWords;
      String animalNames[] = {"buffalo", "camel", "cheetah", "crocodile", "elephant", "giraffe", "gnu", "kudo", "leopard", "lion", "oryx", "ostrich", "shark", "snake"};
      String animalPronunciations[] = {"ˈbəf(ə)ˌlō", "ˈkaməl", "ˈCHēdə", "ˈkräkəˌdīl", "ˈeləfənt", "jəˈraf", "n(y)o͞o", "ˈko͞odo͞o", "ˈlepərd", "ˈlīən", "null", "ˈästriCH", "SHärk", "snāk"};
@@ -46,9 +45,10 @@ public class ListActivity extends AppCompatActivity implements Serializable {
             R.drawable.gnu, R.drawable.kudo, R.drawable.leopard,
             R.drawable.lion, R.drawable.oryx, R.drawable.ostrich,
             R.drawable.shark, R.drawable.snake};
-     String animalRatings[] = {"5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0"};
+     String animalRatings[] = {"3.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0"};
      RecyclerView recyclerView;
      RecyclerView.Adapter adapter;
+     static final int EDIT_ANIMAL_REQUEST = 1;
 
     List<AnimalComplete> listItems;
 
@@ -88,7 +88,22 @@ public class ListActivity extends AppCompatActivity implements Serializable {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == EDIT_ANIMAL_REQUEST){
+            // CHECK
+            Log.d("Out", "OUT");
+            if (resultCode == RESULT_OK){
+                final AnimalComplete editedAnimalObject = (AnimalComplete)getIntent().getSerializableExtra("AnimalComplete");
+                animalRatings[editedAnimalObject.getPosition()] = editedAnimalObject.getRating();
+                Log.d("In", "IN");
+
+            }
+
+        }
+    }
 
     //Recycler Adaptor
     public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerAdaptor.ViewHolder> implements Serializable{
@@ -123,10 +138,13 @@ public class ListActivity extends AppCompatActivity implements Serializable {
                 public void onClick(View v) {
                     Intent intent = new Intent(ListActivity.this, DetailActivity.class);
                     intent.putExtra("AnimalComplete", listitem);
-                    startActivity(intent);
+                    startActivityForResult(intent, EDIT_ANIMAL_REQUEST);
                 }
             });
+
+
         }
+
 
         @Override
         public int getItemCount() {

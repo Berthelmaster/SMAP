@@ -1,5 +1,6 @@
 package thomas.berthelsen.AssignmentOne;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import java.io.Serializable;
 
 import static java.lang.Integer.parseInt;
+import static thomas.berthelsen.AssignmentOne.ListActivity.EDIT_ANIMAL_REQUEST;
 
 public class DetailActivity extends AppCompatActivity implements Serializable{
 
@@ -57,10 +59,16 @@ public class DetailActivity extends AppCompatActivity implements Serializable{
             public void onClick(View v) {
                 Intent intent = new Intent(DetailActivity.this, EditActivity.class);
                 intent.putExtra("AnimalComplete", animalObject);
-                startActivity(intent);
+                startActivityForResult(intent, EDIT_ANIMAL_REQUEST);
             }
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        finish();
     }
 }

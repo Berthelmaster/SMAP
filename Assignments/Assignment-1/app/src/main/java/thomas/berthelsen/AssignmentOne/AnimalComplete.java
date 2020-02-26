@@ -1,11 +1,13 @@
 package thomas.berthelsen.AssignmentOne;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class AnimalComplete implements Serializable {
 
     private int _image, _position;
     private String _name, _desc, _pron, _rating;
+    private List<String> _notes;
 
     public AnimalComplete(int image, String name, String desc, String pron, String rating, int position){
         this._image = image;
@@ -14,6 +16,7 @@ public class AnimalComplete implements Serializable {
         this._pron = pron;
         this._rating = rating;
         this._position = position;
+
 
     }
 
@@ -34,6 +37,9 @@ public class AnimalComplete implements Serializable {
 
     public int getPosition() {return _position;}
     public void setPosition(int position) {this._position = position;}
+
+    public List<String> getNotes() {return _notes;}
+    public void setNotes(String note) {this._notes.add(note);}
 
 
 }

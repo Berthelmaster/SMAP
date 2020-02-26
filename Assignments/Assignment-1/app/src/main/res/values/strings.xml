@@ -13,4 +13,8 @@
     <string name="Notes">Notes:</string>
     <string name="Cancel">Cancel</string>
     <string name="Edit">Edit</string>
+    <string name="nameOfWord">NAME OF WORD</string>
+    <string name="wordRating">Word Rating</string>
+    <string name="okButtonEdit">OK</string>
+    <string name="InputTextView">Write notes here</string>
 </resources>
