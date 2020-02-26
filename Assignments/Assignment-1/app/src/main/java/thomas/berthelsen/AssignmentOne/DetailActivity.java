@@ -31,13 +31,13 @@ public class DetailActivity extends AppCompatActivity implements Serializable{
         cancelButton = findViewById(R.id.detailCancelButton);
         editButton = findViewById(R.id.detailEditButton);
 
-        ListActivity.AnimalComplete animalList = (ListActivity.AnimalComplete)getIntent().getSerializableExtra("AnimalObject");
+        final AnimalComplete animalObject = (AnimalComplete)getIntent().getSerializableExtra("AnimalComplete");
 
-        int image = animalList.getImage();
-        String name = animalList.getName();
-        String pron = animalList.getPron();
-        String desc = animalList.getDesc();
-        String rating = animalList.getRating();
+        int image = animalObject.getImage();
+        String name = animalObject.getName();
+        String pron = animalObject.getPron();
+        String desc = animalObject.getDesc();
+        String rating = animalObject.getRating();
 
         detailAnimalImage.setImageResource(image);
         detailNameView.setText(name);
@@ -56,7 +56,7 @@ public class DetailActivity extends AppCompatActivity implements Serializable{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailActivity.this, EditActivity.class);
-
+                intent.putExtra("AnimalComplete", animalObject);
                 startActivity(intent);
             }
         });
