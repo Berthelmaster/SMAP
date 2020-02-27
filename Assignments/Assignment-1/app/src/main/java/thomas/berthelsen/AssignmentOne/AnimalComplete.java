@@ -6,16 +6,20 @@ import java.util.List;
 public class AnimalComplete implements Serializable {
 
     private int _image, _position;
-    private String _name, _desc, _pron, _rating;
-    private List<String> _notes;
+    private String _name, _desc, _pron, _rating, _notes;
 
-    public AnimalComplete(int image, String name, String desc, String pron, String rating, int position){
+    public AnimalComplete(){
+
+    }
+
+    public AnimalComplete(int image, String name, String desc, String pron, String rating, int position, String notes){
         this._image = image;
         this._name = name;
         this._desc = desc;
         this._pron = pron;
         this._rating = rating;
         this._position = position;
+        this._notes = notes;
 
 
     }
@@ -38,8 +42,8 @@ public class AnimalComplete implements Serializable {
     public int getPosition() {return _position;}
     public void setPosition(int position) {this._position = position;}
 
-    public List<String> getNotes() {return _notes;}
-    public void setNotes(String note) {this._notes.add(note);}
+    public String getNotes() {return _notes;}
+    public void setNotes(String notes) {this._notes = notes;}
 
 
 }

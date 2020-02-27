@@ -27,6 +27,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static thomas.berthelsen.AssignmentOne.DetailActivity.EDITED_ANIMAL_OBJECT_DETAIL;
+
 public class ListActivity extends AppCompatActivity implements Serializable {
 
      Button exitButton;
@@ -46,6 +48,7 @@ public class ListActivity extends AppCompatActivity implements Serializable {
             R.drawable.lion, R.drawable.oryx, R.drawable.ostrich,
             R.drawable.shark, R.drawable.snake};
      String animalRatings[] = {"3.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0"};
+     String notes = "";
      RecyclerView recyclerView;
      RecyclerView.Adapter adapter;
      static final int EDIT_ANIMAL_REQUEST = 1;
@@ -70,7 +73,7 @@ public class ListActivity extends AppCompatActivity implements Serializable {
 
         for (int i = 0; i <= animalImages.length-1; i++)
         {
-            AnimalComplete animal = new AnimalComplete(animalImages[i], animalNames[i], animalDescribtions[i], animalPronunciations[i], animalRatings[i], i);
+            AnimalComplete animal = new AnimalComplete(animalImages[i], animalNames[i], animalDescribtions[i], animalPronunciations[i], animalRatings[i], i, notes);
 
             listItems.add(animal);
         }
@@ -92,20 +95,17 @@ public class ListActivity extends AppCompatActivity implements Serializable {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == EDIT_ANIMAL_REQUEST){
-            // CHECK
-            Log.d("Out", "OUT");
-            if (resultCode == RESULT_OK){
-                final AnimalComplete editedAnimalObject = (AnimalComplete)getIntent().getSerializableExtra("AnimalComplete");
-                animalRatings[editedAnimalObject.getPosition()] = editedAnimalObject.getRating();
-                Log.d("In", "IN");
 
+            if (resultCode == RESULT_OK){
+                final AnimalComplete editedAnimalObject = (AnimalComplete)getIntent().getSerializableExtra(EDITED_ANIMAL_OBJECT_DETAIL);
+                animalRatings[editedAnimalObject.getPosition()] = editedAnimalObject.getRating();
+                Log.d("__In", "IN");
             }
 
-        }
+
     }
 
-    //Recycler Adaptor
+    //Recycler Adaptor inspired from this youtube series: https://www.youtube.com/watch?v=5T144CbTwjc&list=PLk7v1Z2rk4hjHrGKo9GqOtLs1e2bglHHA&index=2
     public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerAdaptor.ViewHolder> implements Serializable{
 
         public RecyclerAdaptor(List<AnimalComplete> listitems, Context context) {

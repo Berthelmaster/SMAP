@@ -4,29 +4,36 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.io.Serializable;
 
 public class EditActivity extends AppCompatActivity implements Serializable{
 
-    Button cancelButton;
+    Button cancelButton, okButton;
     SeekBar seekBarEdit;
-    TextView ratingTextViewEdit, name;
+    TextView ratingTextViewEdit, name, inputTextView;
+    EditText editText;
+    public static String EDITED_ANIMAL_OBJECT_EDIT = "edited_animal_object_EDIT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
+        okButton = findViewById(R.id.buttonOK);
         cancelButton = findViewById(R.id.buttonCancel);
         seekBarEdit = findViewById(R.id.seekBarEdit);
         ratingTextViewEdit = findViewById(R.id.textRating);
+
+        inputTextView = findViewById(R.id.inputTextView);
+        editText = findViewById(R.id.editPlainText);
+
         name = findViewById(R.id.nameOfWord);
 
         final AnimalComplete animalObject = (AnimalComplete)getIntent().getSerializableExtra("AnimalComplete");
@@ -61,7 +68,22 @@ public class EditActivity extends AppCompatActivity implements Serializable{
         });
 
 
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("__InEAA", "IN");
+                if (editText.getText() != null)
+                {
+                    animalObject.setNotes(editText.getText().toString());
+                }
+                Log.d("__InE", "IN");
+                Intent data = new Intent();
+                data.putExtra(EDITED_ANIMAL_OBJECT_EDIT, animalObject);
+                setResult(RESULT_OK, data);
 
+                finish();
+            }
+        });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
