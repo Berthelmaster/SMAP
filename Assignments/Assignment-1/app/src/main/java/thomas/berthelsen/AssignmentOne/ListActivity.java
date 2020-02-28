@@ -70,9 +70,9 @@ public class ListActivity extends AppCompatActivity implements Serializable {
             for (AnimalComplete animal : animalObjects)
             {
                 animalRatings[animal.getPosition()] = animal.getRating();
-                Log.d("LOGLOG", animal.getRating());
             }
 
+            // SAVE LIST FOR FUTURE USE
             animalSavedObjects = animalObjects;
         }
 
@@ -108,7 +108,6 @@ public class ListActivity extends AppCompatActivity implements Serializable {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d("WAWAWA","INSAVEINSTANCE");
         outState.putSerializable("key", (Serializable) animalSavedObjects);
     }
 

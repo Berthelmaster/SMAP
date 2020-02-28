@@ -17,4 +17,5 @@
     <string name="wordRating">Word Rating</string>
     <string name="okButtonEdit">OK</string>
     <string name="InputTextView">Write notes here</string>
+    <string name="Describtion">Description</string>
 </resources>

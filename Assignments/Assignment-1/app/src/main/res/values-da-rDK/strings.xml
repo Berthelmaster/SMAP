@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lær ord</string>
+    <string name="textview">Tekst View</string>
+    <string name="main_exit_textView">Afslut</string>
+    <string name="main_mywords_textView">Mine Ord</string>
+    <string name="main_exit_button">Afslut</string>
+    <string name="value3">Værdi3</string>
+    <string name="value2">Værdi2</string>
+    <string name="value1">Værdi1</string>
+    <string name="todo">TODO</string>
+    <string name="someimage">Et Billede</string>
+    <string name="RatingTextView">5</string>
+    <string name="Notes">Noter:</string>
+    <string name="Cancel">Tilbage</string>
+    <string name="Edit">Redigere</string>
+    <string name="nameOfWord">NAVN PÅ ORD</string>
+    <string name="wordRating">Ord Score</string>
+    <string name="okButtonEdit">OK</string>
+    <string name="InputTextView">Skriv noter her</string>
+</resources>

@@ -30,10 +30,8 @@ public class EditActivity extends AppCompatActivity implements Serializable{
         cancelButton = findViewById(R.id.buttonCancel);
         seekBarEdit = findViewById(R.id.seekBarEdit);
         ratingTextViewEdit = findViewById(R.id.textRating);
-
         inputTextView = findViewById(R.id.inputTextView);
         editText = findViewById(R.id.editPlainText);
-
         name = findViewById(R.id.nameOfWord);
 
         final AnimalComplete animalObject = (AnimalComplete)getIntent().getSerializableExtra("AnimalComplete");
@@ -41,7 +39,7 @@ public class EditActivity extends AppCompatActivity implements Serializable{
         name.setText(animalObject.getName());
         ratingTextViewEdit.setText(animalObject.getRating());
 
-        float progressValue = Float.valueOf(animalObject.getRating()) * 10.0f;
+        float progressValue = Float.parseFloat(animalObject.getRating()) * 10.0f;
         seekBarEdit.setProgress((int) progressValue);
 
 
@@ -82,7 +80,7 @@ public class EditActivity extends AppCompatActivity implements Serializable{
                 {
                     animalObject.setNotes("");
                 }
-                Log.d("__InE", "IN");
+
                 Intent data = new Intent();
                 data.putExtra(EDITED_ANIMAL_OBJECT_EDIT, animalObject);
                 setResult(RESULT_OK, data);
