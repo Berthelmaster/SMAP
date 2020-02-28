@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.sax.StartElementListener;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,20 +65,20 @@ public class ListActivity extends AppCompatActivity implements Serializable {
 
         if (savedInstanceState != null)
         {
-            for (AnimalComplete animalSavedObject : animalSavedObjects)
+            List<AnimalComplete> animalObjects = (List<AnimalComplete>) savedInstanceState.getSerializable("key");
+
+            for (AnimalComplete animal : animalObjects)
             {
-                int tempPosition = animalSavedObject.getPosition();
-                listItems.set(tempPosition, animalSavedObject);
-                adapter.notifyItemChanged(tempPosition);
+                animalRatings[animal.getPosition()] = animal.getRating();
+                Log.d("LOGLOG", animal.getRating());
             }
 
+            animalSavedObjects = animalObjects;
         }
 
         myWords = findViewById(R.id.wordsTextView);
         exitButton = findViewById(R.id.exitButton);
         recyclerView = findViewById(R.id.RecyclerView);
-
-
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -104,9 +106,15 @@ public class ListActivity extends AppCompatActivity implements Serializable {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d("WAWAWA","INSAVEINSTANCE");
+        outState.putSerializable("key", (Serializable) animalSavedObjects);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
 
             if (resultCode == RESULT_OK){
                 assert data != null;
@@ -120,8 +128,6 @@ public class ListActivity extends AppCompatActivity implements Serializable {
                 adapter.notifyItemChanged(position);
 
             }
-
-
     }
 
     //Recycler Adaptor inspired from this youtube series: https://www.youtube.com/watch?v=5T144CbTwjc&list=PLk7v1Z2rk4hjHrGKo9GqOtLs1e2bglHHA&index=2
