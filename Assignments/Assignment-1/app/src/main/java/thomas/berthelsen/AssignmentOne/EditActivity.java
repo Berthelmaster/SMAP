@@ -71,8 +71,9 @@ public class EditActivity extends AppCompatActivity implements Serializable{
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("__InEAA", "IN");
+
                 animalObject.setRating(ratingTextViewEdit.getText().toString());
+
                 if (editText.getText() != null)
                 {
                     animalObject.setNotes(editText.getText().toString());

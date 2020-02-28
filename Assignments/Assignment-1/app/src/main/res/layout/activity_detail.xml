@@ -48,9 +48,10 @@
         android:id="@+id/detailDescView"
         android:layout_width="348dp"
         android:layout_height="79dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
         android:text="@string/value3"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailPronView" />
 
@@ -67,25 +68,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailImageView" />
 
-    <ListView
-        android:id="@+id/detailListView"
-        android:layout_width="349dp"
-        android:layout_height="86dp"
-        android:layout_marginTop="56dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailDescView" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/Notes"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/detailListView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailDescView" />
 
@@ -98,9 +89,7 @@
         android:layout_marginBottom="16dp"
         android:text="@string/Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailListView"
-        app:layout_constraintVertical_bias="0.504" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/detailEditButton"
@@ -111,7 +100,16 @@
         android:layout_marginBottom="16dp"
         android:text="@string/Edit"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailListView" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/notesTextView"
+        android:layout_width="349dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

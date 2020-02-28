@@ -52,6 +52,7 @@ public class ListActivity extends AppCompatActivity implements Serializable {
      RecyclerView recyclerView;
      RecyclerView.Adapter adapter;
      static final int EDIT_ANIMAL_REQUEST = 1;
+     List<AnimalComplete> animalSavedObjects = new ArrayList<>();
 
     List<AnimalComplete> listItems;
 
@@ -59,6 +60,17 @@ public class ListActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (savedInstanceState != null)
+        {
+            for (AnimalComplete animalSavedObject : animalSavedObjects)
+            {
+                int tempPosition = animalSavedObject.getPosition();
+                listItems.set(tempPosition, animalSavedObject);
+                adapter.notifyItemChanged(tempPosition);
+            }
+
+        }
 
         myWords = findViewById(R.id.wordsTextView);
         exitButton = findViewById(R.id.exitButton);
@@ -103,6 +115,7 @@ public class ListActivity extends AppCompatActivity implements Serializable {
                 assert editedAnimalObject != null;
                 int position = editedAnimalObject.getPosition();
 
+                animalSavedObjects.add(editedAnimalObject);
                 listItems.set(position, editedAnimalObject);
                 adapter.notifyItemChanged(position);
 
