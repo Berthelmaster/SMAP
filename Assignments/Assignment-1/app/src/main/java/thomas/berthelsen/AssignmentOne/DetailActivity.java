@@ -80,18 +80,16 @@ public class DetailActivity extends AppCompatActivity implements Serializable{
             Log.d("__InD", "IN");
             assert data != null;
             AnimalComplete animal = (AnimalComplete) data.getSerializableExtra(EDITED_ANIMAL_OBJECT_EDIT);
-
-            Intent newData = new Intent();
+            
             assert animal != null;
-            Log.d("__InDDD", animal.getDesc());
+            Intent newData = new Intent();
             newData.putExtra(EDITED_ANIMAL_OBJECT_DETAIL, animal);
             setResult(RESULT_OK, newData);
-            Log.d("__InDD", "IN");
+
             finish();
 
             }
-        else
-            finish();
+
 
         }
 
