@@ -72,9 +72,14 @@ public class EditActivity extends AppCompatActivity implements Serializable{
             @Override
             public void onClick(View v) {
                 Log.d("__InEAA", "IN");
+                animalObject.setRating(ratingTextViewEdit.getText().toString());
                 if (editText.getText() != null)
                 {
                     animalObject.setNotes(editText.getText().toString());
+                }
+                else
+                {
+                    animalObject.setNotes("");
                 }
                 Log.d("__InE", "IN");
                 Intent data = new Intent();
