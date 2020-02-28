@@ -98,9 +98,14 @@ public class ListActivity extends AppCompatActivity implements Serializable {
 
             if (resultCode == RESULT_OK){
                 final AnimalComplete editedAnimalObject = (AnimalComplete) data.getSerializableExtra(EDITED_ANIMAL_OBJECT_DETAIL);
-                animalRatings[editedAnimalObject.getPosition()] = editedAnimalObject.getRating();
+                int position = editedAnimalObject.getPosition();
+                listItems.set(position, editedAnimalObject);
+                adapter.notifyItemChanged(position);
+
                 Log.d("__In", "IN");
                 Log.d("__InDDDD", editedAnimalObject.getRating());
+
+
             }
 
 
