@@ -74,21 +74,24 @@ public class DetailActivity extends AppCompatActivity implements Serializable{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == RESULT_OK)
         {
-                Log.d("__InD", "IN");
-                AnimalComplete animal = (AnimalComplete) data.getSerializableExtra(EDITED_ANIMAL_OBJECT_EDIT);
-                Intent newData = new Intent();
-                Log.d("__InDDD", animal.getDesc());
-                newData.putExtra(EDITED_ANIMAL_OBJECT_DETAIL, animal);
-                setResult(RESULT_OK, newData);
-                Log.d("__InDD", "IN");
-                finish();
+            Log.d("__InD", "IN");
+            assert data != null;
+            AnimalComplete animal = (AnimalComplete) data.getSerializableExtra(EDITED_ANIMAL_OBJECT_EDIT);
+
+            Intent newData = new Intent();
+            assert animal != null;
+            Log.d("__InDDD", animal.getDesc());
+            newData.putExtra(EDITED_ANIMAL_OBJECT_DETAIL, animal);
+            setResult(RESULT_OK, newData);
+            Log.d("__InDD", "IN");
+            finish();
 
             }
-        else {
+        else
             finish();
-        }
 
         }
 
