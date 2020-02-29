@@ -20,11 +20,23 @@ public class EditActivity extends AppCompatActivity implements Serializable{
     TextView ratingTextViewEdit, name, inputTextView;
     EditText editText;
     public static String EDITED_ANIMAL_OBJECT_EDIT = "edited_animal_object_EDIT";
+    AnimalComplete animalGlobal = new AnimalComplete();
+    AnimalComplete animalObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
+
+
+
+        if (savedInstanceState != null)
+        {
+             animalObject = (AnimalComplete) savedInstanceState.getSerializable("keyEdit");
+        }
+
+
 
         okButton = findViewById(R.id.buttonOK);
         cancelButton = findViewById(R.id.buttonCancel);
@@ -34,13 +46,13 @@ public class EditActivity extends AppCompatActivity implements Serializable{
         editText = findViewById(R.id.editPlainText);
         name = findViewById(R.id.nameOfWord);
 
-        final AnimalComplete animalObject = (AnimalComplete)getIntent().getSerializableExtra("AnimalComplete");
+        animalObject = (AnimalComplete)getIntent().getSerializableExtra("AnimalComplete");
 
         assert animalObject != null;
         name.setText(animalObject.getName());
         ratingTextViewEdit.setText(animalObject.getRating());
 
-        float progressValue = Float.parseFloat(animalObject.getRating()) * 10.0f;
+        float progressValue = Float.valueOf(animalObject.getRating()) * 10.0f;
         seekBarEdit.setProgress((int) progressValue);
 
 
@@ -51,6 +63,8 @@ public class EditActivity extends AppCompatActivity implements Serializable{
                 {
                     float value = ((float)progress / 10.0f);
                     ratingTextViewEdit.setText(String.valueOf(value));
+                    animalObject.setRating(String.valueOf(value));
+
                 }
 
             }
@@ -62,10 +76,18 @@ public class EditActivity extends AppCompatActivity implements Serializable{
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                animalGlobal = animalObject;
             }
         });
 
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animalGlobal.setNotes(editText.getText().toString());
+            }
+        });
+
+        
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,5 +119,13 @@ public class EditActivity extends AppCompatActivity implements Serializable{
             }
         });
 
+    }
+
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("keyEdit", animalGlobal);
     }
 }
