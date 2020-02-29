@@ -54,9 +54,9 @@ public class ListActivity extends AppCompatActivity implements Serializable {
      RecyclerView recyclerView;
      RecyclerView.Adapter adapter;
      static final int EDIT_ANIMAL_REQUEST = 1;
-     List<AnimalComplete> animalSavedObjects = new ArrayList<>();
 
-    List<AnimalComplete> listItems;
+     List<AnimalComplete> animalSavedObjects = new ArrayList<>();
+     List<AnimalComplete> listItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +78,11 @@ public class ListActivity extends AppCompatActivity implements Serializable {
 
         myWords = findViewById(R.id.wordsTextView);
         exitButton = findViewById(R.id.exitButton);
-        recyclerView = findViewById(R.id.RecyclerView);
 
+        recyclerView = findViewById(R.id.RecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        listItems = new ArrayList<>();
 
         for (int i = 0; i <= animalImages.length-1; i++)
         {

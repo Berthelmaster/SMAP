@@ -36,6 +36,7 @@ public class EditActivity extends AppCompatActivity implements Serializable{
 
         final AnimalComplete animalObject = (AnimalComplete)getIntent().getSerializableExtra("AnimalComplete");
 
+        assert animalObject != null;
         name.setText(animalObject.getName());
         ratingTextViewEdit.setText(animalObject.getRating());
 

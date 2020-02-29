@@ -18,4 +18,5 @@
     <string name="wordRating">Ord Score</string>
     <string name="okButtonEdit">OK</string>
     <string name="InputTextView">Skriv noter her</string>
+    <string name="Describtion">Beskrivelse</string>
 </resources>
