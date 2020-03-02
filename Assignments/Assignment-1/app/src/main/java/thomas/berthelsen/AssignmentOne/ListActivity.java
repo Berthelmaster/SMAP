@@ -50,7 +50,7 @@ public class ListActivity extends AppCompatActivity implements Serializable {
             R.drawable.lion, R.drawable.oryx, R.drawable.ostrich,
             R.drawable.shark, R.drawable.snake};
      String animalRatings[] = {"3.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0", "5.0"};
-     String notes = "";
+     String notes[] = {"","","","","","","","","","","","","",""};
      RecyclerView recyclerView;
      RecyclerView.Adapter adapter;
      static final int EDIT_ANIMAL_REQUEST = 1;
@@ -70,6 +70,7 @@ public class ListActivity extends AppCompatActivity implements Serializable {
             for (AnimalComplete animal : animalObjects)
             {
                 animalRatings[animal.getPosition()] = animal.getRating();
+                notes[animal.getPosition()] = animal.getNotes();
             }
 
             // SAVE LIST FOR FUTURE USE
@@ -86,7 +87,7 @@ public class ListActivity extends AppCompatActivity implements Serializable {
 
         for (int i = 0; i <= animalImages.length-1; i++)
         {
-            AnimalComplete animal = new AnimalComplete(animalImages[i], animalNames[i], animalDescribtions[i], animalPronunciations[i], animalRatings[i], i, notes);
+            AnimalComplete animal = new AnimalComplete(animalImages[i], animalNames[i], animalDescribtions[i], animalPronunciations[i], animalRatings[i], i, notes[i]);
 
             listItems.add(animal);
         }
