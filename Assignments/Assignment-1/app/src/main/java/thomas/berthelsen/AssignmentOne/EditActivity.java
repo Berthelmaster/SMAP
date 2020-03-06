@@ -53,6 +53,7 @@ public class EditActivity extends AppCompatActivity implements Serializable{
 
         assert animalObject != null;
         name.setText(animalObject.getName());
+        editText.setText(animalObject.getNotes());
         ratingTextViewEdit.setText(animalObject.getRating());
 
         float progressValue = Float.valueOf(animalObject.getRating()) * 10.0f;
