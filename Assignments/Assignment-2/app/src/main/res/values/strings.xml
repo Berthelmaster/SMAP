@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Word Learner</string>
+    <string name="textview">TextView</string>
+    <string name="main_exit_textView">Exit</string>
+    <string name="main_mywords_textView">My Words:</string>
+    <string name="main_exit_button">Exit</string>
+    <string name="value3">Value3</string>
+    <string name="value2">Value2</string>
+    <string name="value1">Value1</string>
+    <string name="todo">TODO</string>
+    <string name="someimage">someimage</string>
+    <string name="RatingTextView">5</string>
+    <string name="Notes">Notes:</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Edit">Edit</string>
+    <string name="nameOfWord">NAME OF WORD</string>
+    <string name="wordRating">Word Rating</string>
+    <string name="okButtonEdit">OK</string>
+    <string name="InputTextView">Write notes here</string>
+    <string name="Describtion">Description</string>
+    <string name="Add">Add</string>
+    <string name="SearchAndAdd">Search and Add</string>
+</resources>

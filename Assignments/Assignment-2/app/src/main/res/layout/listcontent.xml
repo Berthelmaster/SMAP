@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:id="@+id/AnimalImage"
+            android:layout_width="87dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:contentDescription="@string/todo"
+            android:src="@mipmap/ic_launcher"></ImageView>
+
+        <TextView
+            android:id="@+id/AnimalName"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="95dp"
+            android:text="@string/value1"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginStart="95dp"></TextView>
+
+        <TextView
+            android:id="@+id/AnimalPronunciation"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="95dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/value2"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginStart="95dp"></TextView>
+
+        <TextView
+            android:id="@+id/AnimalRating"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="300dp"
+            android:layout_marginLeft="300dp"
+            android:gravity="center"
+            android:textSize="35sp"
+            android:text="@string/value3"></TextView>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
