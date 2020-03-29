@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Animal.class}, version = 1)
+@Database(entities = {Animal.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract AnimalDao animalDao();
 }

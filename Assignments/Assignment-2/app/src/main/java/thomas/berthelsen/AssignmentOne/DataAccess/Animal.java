@@ -5,6 +5,9 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import thomas.berthelsen.AssignmentOne.HttpService.Definition;
+import thomas.berthelsen.AssignmentOne.HttpService.Model;
+
 @Entity
 public class Animal {
 
@@ -15,16 +18,31 @@ public class Animal {
     @ColumnInfo(name = "_name")
     private String _name;
 
-    private int _image, _position;
-    private String _desc, _pron, _rating, _notes;
+    private int _position;
+    private String _desc, _pron, _rating, _notes, _image;
 
 
     public Animal(){
 
     }
 
+    public Animal(Model jsonModel)
+    {
+        Definition definition = jsonModel.getDefinitions().get(0);
+
+        _image = definition.getImageUrl();
+        _desc = definition.getDefinition();
+        _pron =  jsonModel.getPronunciation();
+        _name = jsonModel.getWord();
+
+        if(getRating() == null)
+            _rating = "5";
+        if(getNotes() == null)
+            _notes = "Default note";
+    }
+
     @Ignore
-    public Animal(int image, String name, String desc, String pron, String rating, int position, String notes){
+    public Animal(String image, String name, String desc, String pron, String rating, int position, String notes){
         this._image = image;
         this._name = name;
         this._desc = desc;
@@ -37,8 +55,8 @@ public class Animal {
     public int getId() {return _uid;}
     public void setUid(int uid) {this._uid = uid; }
 
-    public int getImage() {return _image;}
-    public void setImage(int image) {this._image = image;}
+    public String getImage() {return _image;}
+    public void setImage(String image) {this._image = image;}
 
     public String getName() {return _name;}
     public void setName(String name) {this._name = name;}

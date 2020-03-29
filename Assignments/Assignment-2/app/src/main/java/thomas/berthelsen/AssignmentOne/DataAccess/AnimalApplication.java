@@ -9,7 +9,7 @@ public class AnimalApplication extends Application {
 
     public AppDatabase getAppDatabase(){
         if(db == null){
-            db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "myDatabase").build();
+            db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "myDatabase").fallbackToDestructiveMigration().build();
         }
 
         return db;

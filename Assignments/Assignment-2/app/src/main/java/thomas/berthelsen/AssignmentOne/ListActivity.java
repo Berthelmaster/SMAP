@@ -7,9 +7,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.sax.StartElementListener;
@@ -18,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,7 +42,8 @@ import static thomas.berthelsen.AssignmentOne.DetailActivity.EDITED_ANIMAL_OBJEC
 
 public class ListActivity extends AppCompatActivity implements Serializable {
 
-     Button exitButton;
+     Button exitButton, addButton;
+     EditText editText;
      TextView myWords;
      String animalNames[] = {"buffalo", "camel", "cheetah", "crocodile", "elephant", "giraffe", "gnu", "kudo", "leopard", "lion", "oryx", "ostrich", "shark", "snake"};
      String animalPronunciations[] = {"ˈbəf(ə)ˌlō", "ˈkaməl", "ˈCHēdə", "ˈkräkəˌdīl", "ˈeləfənt", "jəˈraf", "n(y)o͞o", "ˈko͞odo͞o", "ˈlepərd", "ˈlīən", "null", "ˈästriCH", "SHärk", "snāk"};
@@ -63,10 +68,14 @@ public class ListActivity extends AppCompatActivity implements Serializable {
      List<AnimalComplete> animalSavedObjects = new ArrayList<>();
      List<AnimalComplete> listItems = new ArrayList<>();
 
+     private WordLearnerService wordLearnerService;
+     private ServiceConnection wordLearnerServiceConnection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         if (savedInstanceState != null)
         {
@@ -82,11 +91,13 @@ public class ListActivity extends AppCompatActivity implements Serializable {
             animalSavedObjects = animalObjects;
         }
 
-        Animal newAnimal = new Animal(2322, "wqedqwd", "qwdqwdqwd", "wdqwdqwdqwd", "qwdqdqwd", 2, "wqdqwdqwd");
+        //Animal newAnimal = new Animal(, "wqedqwd", "qwdqwdqwd", "wdqwdqwdqwd", "qwdqdqwd", 2, "wqdqwdqwd");
 
 
         myWords = findViewById(R.id.wordsTextView);
         exitButton = findViewById(R.id.exitButton);
+        addButton = findViewById(R.id.addButton);
+        editText = findViewById(R.id.editText);
 
         recyclerView = findViewById(R.id.RecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -111,6 +122,27 @@ public class ListActivity extends AppCompatActivity implements Serializable {
                 finish();
             }
         });
+        startService(new Intent(ListActivity.this, WordLearnerService.class));
+        setupConnectionToService();
+        bindService(new Intent(ListActivity.this, WordLearnerService.class), wordLearnerServiceConnection, Context.BIND_AUTO_CREATE);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(wordLearnerService != null)
+                {
+                    String text = editText.getText().toString();
+                    wordLearnerService.getWord(text);
+                }
+                else
+                {
+                    Log.d("WORDLEARNERSERVICE", "DIDNT WORK");
+                }
+
+            }
+        });
+
+
     }
 
     @Override
@@ -214,6 +246,23 @@ public class ListActivity extends AppCompatActivity implements Serializable {
                 LinearLayoutHolder = (LinearLayout) itemView.findViewById(R.id.linearLayout);
             }
         }
+    }
+
+    private void setupConnectionToService(){
+        wordLearnerServiceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                Log.d("ONSERVICECONNECTED", "ONSERVICECONNECTED");
+                wordLearnerService = ((WordLearnerService.WordLearnerServiceBinder)service).getService();
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        };
+
+
     }
 }
 
