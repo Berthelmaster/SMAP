@@ -1,8 +1,10 @@
 package thomas.berthelsen.AssignmentOne.DataAccess;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -11,11 +13,14 @@ public interface AnimalDao {
     @Query("SELECT * FROM animal")
     List<Animal> getAll();
 
-    @Query("SELECT * FROM animal WHERE _uid IN (:userIds)")
-    List<Animal> loadAllbyIds(int[] userIds);
-
     @Insert
-    void insertAnimals(Animal... animals);
+    void insertAnimals(Animal animal);
+
+    @Delete
+    void deleteAnimals(Animal animal);
+
+    @Update
+    void updateAnimals(Animal animal);
 
 
 }

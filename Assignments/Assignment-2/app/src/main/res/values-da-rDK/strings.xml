@@ -21,4 +21,6 @@
     <string name="Describtion">Beskrivelse</string>
     <string name="Add">Add</string>
     <string name="SearchAndAdd">Search and Add</string>
+    <string name="DELETE">SLET</string>
+    <string name="UPDATE">UPDATER</string>
 </resources>

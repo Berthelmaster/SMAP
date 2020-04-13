@@ -20,4 +20,6 @@
     <string name="Describtion">Description</string>
     <string name="Add">Add</string>
     <string name="SearchAndAdd">Search and Add</string>
+    <string name="DELETE">DELETE</string>
+    <string name="UPDATE">UPDATE</string>
 </resources>

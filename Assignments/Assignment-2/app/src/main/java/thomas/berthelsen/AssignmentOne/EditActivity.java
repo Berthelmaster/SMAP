@@ -2,9 +2,12 @@ package thomas.berthelsen.AssignmentOne;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,6 +19,8 @@ import android.widget.TextView;
 
 import java.io.Serializable;
 
+import thomas.berthelsen.AssignmentOne.DataAccess.Animal;
+
 public class EditActivity extends AppCompatActivity implements Serializable{
 
     Button cancelButton, okButton;
@@ -23,8 +28,11 @@ public class EditActivity extends AppCompatActivity implements Serializable{
     TextView ratingTextViewEdit, name, inputTextView;
     EditText editText;
     public static String EDITED_ANIMAL_OBJECT_EDIT = "edited_animal_object_EDIT";
-    AnimalComplete animalGlobal = new AnimalComplete();
-    AnimalComplete animalObject;
+    private WordLearnerService wordLearnerService;
+    private ServiceConnection wordLearnerServiceConnection;
+    private boolean isBound = false;
+    Animal animalGlobal = new Animal();
+    Animal animalObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +40,11 @@ public class EditActivity extends AppCompatActivity implements Serializable{
         setContentView(R.layout.activity_edit);
 
 
-
+        setupConnectionToService();
 
         if (savedInstanceState != null)
         {
-             animalObject = (AnimalComplete) savedInstanceState.getSerializable("keyEdit");
+             animalObject = (Animal) savedInstanceState.getSerializable("keyEdit");
         }
 
 
@@ -49,7 +57,7 @@ public class EditActivity extends AppCompatActivity implements Serializable{
         editText = findViewById(R.id.editPlainText);
         name = findViewById(R.id.nameOfWord);
 
-        animalObject = (AnimalComplete)getIntent().getSerializableExtra("AnimalComplete");
+        animalObject = (Animal)getIntent().getSerializableExtra("AnimalComplete");
 
         assert animalObject != null;
         name.setText(animalObject.getName());
@@ -125,6 +133,8 @@ public class EditActivity extends AppCompatActivity implements Serializable{
                 data.putExtra(EDITED_ANIMAL_OBJECT_EDIT, animalObject);
                 setResult(RESULT_OK, data);
 
+                wordLearnerService.updateWord(animalObject);
+
                 finish();
             }
         });
@@ -149,10 +159,46 @@ public class EditActivity extends AppCompatActivity implements Serializable{
     }
 
 
+    @Override
+    protected void onStart() {
+        startServiceAsForeground();
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        wordLearnerService = null;
+        unbindService(wordLearnerServiceConnection);
+        isBound = false;
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("keyEdit", animalGlobal);
+    }
+
+    private void setupConnectionToService(){
+        wordLearnerServiceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                Log.d("ONSERVICECONNECTED", "ONSERVICECONNECTED");
+                wordLearnerService = ((WordLearnerService.WordLearnerServiceBinder)service).getService();
+                isBound = true;
+
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        };
+    }
+
+    public void startServiceAsForeground()
+    {
+        startService(new Intent(EditActivity.this, WordLearnerService.class));
+        bindService(new Intent(EditActivity.this, WordLearnerService.class), wordLearnerServiceConnection, Context.BIND_AUTO_CREATE);
     }
 }

@@ -1,21 +1,27 @@
 package thomas.berthelsen.AssignmentOne.DataAccess;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.InputStream;
+import java.io.Serializable;
+
 import thomas.berthelsen.AssignmentOne.HttpService.Definition;
 import thomas.berthelsen.AssignmentOne.HttpService.Model;
 
 @Entity
-public class Animal {
+public class Animal implements Serializable {
 
-    // Yes uids? maybe not so fitting when i think about it, more like animalids ?
-    @PrimaryKey(autoGenerate = true)
-    protected int _uid;
-
-    @ColumnInfo(name = "_name")
+    @PrimaryKey(autoGenerate = false)
+    @NonNull
     private String _name;
 
     private int _position;
@@ -30,7 +36,10 @@ public class Animal {
     {
         Definition definition = jsonModel.getDefinitions().get(0);
 
-        _image = definition.getImageUrl();
+        String imageHttp = definition.getImageUrl();
+
+        // If Image does not exist  for animal, set to some default smiley.
+        _image = definition.getImageUrl() == null ? "https://meremobil.dk/wp-content/uploads/2015/12/smiley.png" : definition.getImageUrl();
         _desc = definition.getDefinition();
         _pron =  jsonModel.getPronunciation();
         _name = jsonModel.getWord();
@@ -52,9 +61,6 @@ public class Animal {
         this._notes = notes;
     }
 
-    public int getId() {return _uid;}
-    public void setUid(int uid) {this._uid = uid; }
-
     public String getImage() {return _image;}
     public void setImage(String image) {this._image = image;}
 
@@ -75,6 +81,8 @@ public class Animal {
 
     public String getNotes() {return _notes;}
     public void setNotes(String notes) {this._notes = notes;}
+
+
 
 
 }

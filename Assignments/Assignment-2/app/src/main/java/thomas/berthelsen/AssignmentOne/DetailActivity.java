@@ -3,15 +3,25 @@ package thomas.berthelsen.AssignmentOne;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import thomas.berthelsen.AssignmentOne.WordLearnerService;
+
+import com.squareup.picasso.Picasso;
+
 import java.io.Serializable;
 
+
+import thomas.berthelsen.AssignmentOne.DataAccess.Animal;
 
 import static thomas.berthelsen.AssignmentOne.EditActivity.EDITED_ANIMAL_OBJECT_EDIT;
 import static thomas.berthelsen.AssignmentOne.ListActivity.EDIT_ANIMAL_REQUEST;
@@ -20,15 +30,20 @@ import static thomas.berthelsen.AssignmentOne.ListActivity.EDIT_ANIMAL_REQUEST;
 public class DetailActivity extends AppCompatActivity implements Serializable{
 
     public static String EDITED_ANIMAL_OBJECT_DETAIL = "edited_animal_object_DETAIL";
+    private WordLearnerService wordLearnerService;
+    private ServiceConnection wordLearnerServiceConnection;
+    private boolean isBound = false;
 
     ImageView detailAnimalImage;
     TextView detailNameView, detailPronView, detailDescView, detailRatingView, notesTextView;
-    Button cancelButton, editButton;
+    Button cancelButton, editButton, deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        setupConnectionToService();
 
         detailAnimalImage = findViewById(R.id.detailImageView);
         detailNameView = findViewById(R.id.detailNameView);
@@ -38,17 +53,18 @@ public class DetailActivity extends AppCompatActivity implements Serializable{
         notesTextView = findViewById(R.id.notesTextView);
         cancelButton = findViewById(R.id.detailCancelButton);
         editButton = findViewById(R.id.detailEditButton);
+        deleteButton = findViewById(R.id.detailDelete);
 
-        final AnimalComplete animalObject = (AnimalComplete)getIntent().getSerializableExtra("AnimalComplete");
+        final Animal animalObject = (Animal)getIntent().getSerializableExtra("AnimalComplete");
 
-        int image = animalObject.getImage();
+        String image = animalObject.getImage();
         String name = animalObject.getName();
         String pron = animalObject.getPron();
         String desc = animalObject.getDesc();
         String rating = animalObject.getRating();
         String note = animalObject.getNotes();
 
-        detailAnimalImage.setImageResource(image);
+        Picasso.with(this).load(image).placeholder(android.R.drawable.sym_def_app_icon).error(android.R.drawable.sym_def_app_icon).into(detailAnimalImage);
         detailNameView.setText(name);
         detailPronView.setText(pron);
         detailDescView.setText(desc);
@@ -72,7 +88,32 @@ public class DetailActivity extends AppCompatActivity implements Serializable{
             }
         });
 
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                wordLearnerService.deleteWord(animalObject);
+
+                finish();
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        startServiceAsForeground();
+        super.onStart();
+
+    }
+
+    @Override
+    protected void onStop() {
+        wordLearnerService = null;
+        unbindService(wordLearnerServiceConnection);
+        isBound = false;
+        super.onStop();
     }
 
     @Override
@@ -82,7 +123,7 @@ public class DetailActivity extends AppCompatActivity implements Serializable{
         if (resultCode == RESULT_OK)
         {
 
-            AnimalComplete animal = (AnimalComplete) data.getSerializableExtra(EDITED_ANIMAL_OBJECT_EDIT);
+            Animal animal = (Animal) data.getSerializableExtra(EDITED_ANIMAL_OBJECT_EDIT);
 
             Intent newData = new Intent();
             newData.putExtra(EDITED_ANIMAL_OBJECT_DETAIL, animal);
@@ -95,5 +136,30 @@ public class DetailActivity extends AppCompatActivity implements Serializable{
 
         }
 
+
+
+    private void setupConnectionToService(){
+        wordLearnerServiceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                Log.d("ONSERVICECONNECTED", "ONSERVICECONNECTED");
+                wordLearnerService = ((WordLearnerService.WordLearnerServiceBinder)service).getService();
+                isBound = true;
+
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        };
     }
+
+    public void startServiceAsForeground()
+    {
+        startService(new Intent(DetailActivity.this, WordLearnerService.class));
+        bindService(new Intent(DetailActivity.this, WordLearnerService.class), wordLearnerServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+}
 

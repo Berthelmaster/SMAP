@@ -22,24 +22,22 @@
         android:id="@+id/detailNameView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
         android:text="@string/value1"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/detailImageView"
+        app:layout_constraintStart_toStartOf="@+id/detailImageView"
         app:layout_constraintTop_toBottomOf="@+id/detailImageView" />
 
     <TextView
         android:id="@+id/detailPronView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginTop="12dp"
         android:text="@string/value2"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/detailNameView"
+        app:layout_constraintStart_toStartOf="@+id/detailNameView"
         app:layout_constraintTop_toBottomOf="@+id/detailNameView" />
 
     <TextView
@@ -57,14 +55,13 @@
         android:id="@+id/detailRatingView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/RatingTextView"
         android:textSize="46sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/detailCancelButton"
+        app:layout_constraintEnd_toEndOf="@+id/detailPronView"
+        app:layout_constraintStart_toStartOf="@+id/detailPronView"
         app:layout_constraintTop_toBottomOf="@+id/detailPronView" />
 
     <TextView
@@ -81,12 +78,10 @@
         android:id="@+id/detailCancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/detailEditButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/detailEditButton"
@@ -118,5 +113,15 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/detailDescView"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/detailDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/DELETE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/detailEditButton"
+        app:layout_constraintStart_toEndOf="@+id/detailCancelButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
